@@ -1,70 +1,119 @@
-# Getting Started with Create React App
+# Stay Booker Pro
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Stay Booker Pro is a production-ready hotel booking website built with modern web technologies. It is designed to be a fully functional and responsive web application for hotel booking services. For the backend api checkout: [staybooker-express-api](https://github.com/iZooGooD/stay-booker-hotel-booking-express-api)
 
-## Available Scripts
+## Key Features
 
-In the project directory, you can run:
+- **Production-Ready**: Crafted with production requirements in mind.
+- **Modern Tech Stack**: Built using React, Tailwind CSS, MirageJS for mocking APIs, and Cypress for end-to-end testing.
+- **Skeleton Loading**: Implements skeleton screens for an enhanced user experience during data loading.
+- **Responsive Design**: Fully responsive interface built purely with Tailwind CSS.
+- **Comprehensive Test Coverage**: Extensive test cases using Cypress to cover every functionality, ensuring robust and reliable code.
+- **Future Backend Integration**: Planned integration with a backend built using Express.js.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing
 
-### `npm run build`
+1. Clone the repository:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone https://github.com/iZooGooD/stay-booker-pro.git
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Navigate to the project directory:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   cd stay-booker-pro
+   ```
 
-### `npm run eject`
+3. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Start the development server:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The application should now be running on [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Running the Tests
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To ensure the reliability and stability of the application, comprehensive test suites have been written using Cypress.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run the tests:
 
-### Code Splitting
+```bash
+npm test
+# or
+npx cypress open
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This command will open the Cypress test runner, where you can execute specific tests or the entire test suite.
 
-### Analyzing the Bundle Size
+## Code Quality and Workflow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Husky for Pre-Commit Hooks
 
-### Making a Progressive Web App
+Stay Booker Pro uses Husky to manage pre-commit hooks, ensuring that code quality and formatting standards are maintained. Before each commit, Husky runs various checks to make sure that the committed code adheres to defined standards.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### GitHub Workflow
 
-### Advanced Configuration
+The project is equipped with a GitHub Actions workflow to automate the testing, building, and code quality checks. The workflow consists of three primary jobs:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. **Build**: Ensures that the application builds correctly on each push and pull request to the `master` branch.
 
-### Deployment
+2. **Code Quality - Prettier**: Checks code formatting using Prettier. This step helps maintain a consistent coding style and format across the project.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+3. **Run Tests**: Executes the test suites to ensure all tests pass. This step is crucial for identifying issues early and maintaining the reliability of the application.
 
-### `npm run build` fails to minify
+### Continuous Integration and Code Quality
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This automated workflow ensures that each change to the codebase is built, tested, and checked for code quality, thereby maintaining the overall health and reliability of the application. It encourages a culture of continuous integration and frequent, reliable delivery of high-quality software.
+
+It would be most appropriate to include the linting instructions in the "Contributing" section of your documentation. This approach helps to ensure that contributors are aware of the coding standards and practices expected for your project right from the start. By integrating linting guidelines with contribution instructions, you emphasize the importance of code quality as an integral part of the contribution process.
+
+Here's how you can seamlessly incorporate it into the "Contributing" section:
+
+---
+
+## Contributing
+
+We welcome contributions to Stay Booker Pro! If you have suggestions or would like to contribute code, please feel free to create issues or submit pull requests.
+
+### Code Quality and Linting
+
+As part of our commitment to maintain high code quality, we use ESLint for linting. Before submitting a Pull Request or committing any changes, please ensure you run the following command:
+
+```bash
+npm run lint-fix
+```
+
+This will automatically fix many common linting errors. If there are errors that can't be auto-fixed, ESLint will report them, and you should manually address these issues. Maintaining a consistent coding standard is crucial for the project.
+
+If you need to bypass the linting check in a special case, you can use the `-n` parameter with `git commit`. However, we strongly advise against skipping lint checks as it can compromise code quality:
+
+```bash
+git commit -m "Your commit message" -n
+```
+
+## Future Scope
+
+- Backend integration with Express.js for a complete full-stack experience.
+- Additional features and improvements to the booking process.
+
