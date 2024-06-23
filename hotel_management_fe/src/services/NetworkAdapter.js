@@ -4,7 +4,7 @@
 class NetworkAdapter {
   static #API_CONFIG = {
     MIRAGE: window.location.origin,
-    EXPRESS: 'http://localhost:4000',
+    EXPRESS: 'http://localhost:8080',
   };
   static #API_URL = NetworkAdapter.#API_CONFIG.MIRAGE;
   async get(endpoint, params = {}) {
