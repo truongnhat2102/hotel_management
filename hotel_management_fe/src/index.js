@@ -17,6 +17,9 @@ import ForgotPassword from './routes/forgot-password/ForgotPassword';
 import Checkout from 'routes/checkout/Checkout';
 import BookingConfirmation from 'routes/booking-confimation/BookingConifrmation';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import LandingPage from 'routes/landing-page/LandingPage';
+import LandingPageLayout from 'routes/layouts/landing-page-layout/LandingPageLayout';
+import { AdminTable } from 'routes/admin-table/AdminTable';
 
 // if (process.env.NODE_ENV === 'development') {
 //   makeServer();
@@ -71,6 +74,24 @@ const router = createBrowserRouter([
         path: '/booking-confirmation',
         element: <BookingConfirmation />,
       },
+      // {
+      //   path: '/landing-page',
+      //   element: <LandingPage />,
+      // },
+      {
+        path: '/admin',
+        element: <AdminTable />,
+      },
+    ],
+  },
+  {
+    path: '/landing-page',
+    element: <LandingPageLayout />,
+    children: [
+      {
+        path: '/landing-page',
+        element: <LandingPage />,
+      },
     ],
   },
 ]);
@@ -80,7 +101,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <GoogleOAuthProvider clientId={clientId}>
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
-    ;
   </AuthProvider>
 );
 

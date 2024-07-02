@@ -1,0 +1,191 @@
+export const swiperExample = [
+  {
+    id: 1,
+    name: 'Swiper 1',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-4-usen-lvp-2500x1071',
+  },
+  {
+    id: 2,
+    name: 'Swiper 2',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-1-usen-lvp-2500x1071',
+  },
+  {
+    id: 3,
+    name: 'Swiper 3',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-2-usen-lvp-2500x1071',
+  },
+  {
+    id: 4,
+    name: 'Swiper 4',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-3-usen-lvp-2500x1071',
+  },
+  {
+    id: 5,
+    name: 'Swiper 5',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-5-usen-lvp-2500x1071',
+  },
+];
+
+export const roomExample = [
+  {
+    id: 1,
+    name: 'Phòng Deluxe Hướng Vườn',
+    description:
+      'Với tầm nhìn ra khu vườn nhiệt đới, đắm chìm trong bầu không khí tươi mát, phòng Deluxe hướng vườn là lựa chọn lý tưởng cho một kỳ nghỉ thật thư thái',
+    area: 30,
+    amountOfBed: 2,
+    capacity: 4,
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-4-usen-lvp-2500x1071',
+  },
+  {
+    id: 2,
+    name: 'Swiper 2',
+    description: 'Swiper 2',
+    area: 30,
+    amountOfBed: 2,
+    capacity: 4,
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-1-usen-lvp-2500x1071',
+  },
+  {
+    id: 3,
+    name: 'Swiper 3',
+    description: 'Swiper 3',
+    area: 30,
+    amountOfBed: 2,
+    capacity: 4,
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-2-usen-lvp-2500x1071',
+  },
+  {
+    id: 4,
+    name: 'Swiper 4',
+    description: 'Swiper 4',
+    area: 30,
+    amountOfBed: 2,
+    capacity: 4,
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-3-usen-lvp-2500x1071',
+  },
+  {
+    id: 5,
+    name: 'Swiper 5',
+    description: 'Swiper 5',
+    area: 30,
+    amountOfBed: 2,
+    capacity: 4,
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hero-carousel-5-usen-lvp-2500x1071',
+  },
+];
+
+export const restaurantExample = [
+  {
+    id: 1,
+    extension: '0123456789',
+    name: 'Nhà hàng Goji Kitchen + Bar',
+    phone: '0123456789',
+    price: '10.000.000',
+    food: 'Đồ ăn nhẹ, Trà chiều, Bia, Cocktail',
+    url: 'https://vi.marriottdanang.com/resourcefiles/home-dining-images/non-nuoc-bar-2.jpg?version=5292024040630',
+    time: '10:00 - 22:00',
+  },
+  {
+    id: 2,
+    extension: '0123456789',
+    name: 'Restaurant 2',
+    phone: '0123456789',
+    price: '10.000.000',
+    url: 'https://vi.marriottdanang.com/resourcefiles/home-dining-images/madame-son-restaurant-new.jpg?version=5292024040630',
+    time: '10:00 - 22:00',
+  },
+  {
+    id: 3,
+    name: 'Restaurant 3',
+    phone: '0123456789',
+    extension: '0123456789',
+    price: '10.000.000',
+    url: 'https://vi.marriottdanang.com/resourcefiles/home-dining-images/writer-bar.jpg?version=5292024040630',
+    time: '10:00 - 22:00',
+  },
+  {
+    id: 4,
+    name: 'Restaurant 4',
+    phone: '0123456789',
+    extension: '0123456789',
+    price: '10.000.000',
+    url: 'https://vi.marriottdanang.com/resourcefiles/home-dining-images/goji-kitchen-and-bar.jpg?version=5292024040630',
+    time: '10:00 - 22:00',
+  },
+];
+
+export const imagesGallery = [
+  {
+    src: 'https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg',
+    original: 'https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg',
+    width: 320,
+    height: 174,
+
+    caption: 'After Rain (Jeshu John - designerspics.com)',
+  },
+  {
+    src: 'https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg',
+    original: 'https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg',
+    width: 320,
+    height: 212,
+    caption: 'Boats (Jeshu John - designerspics.com)',
+  },
+  {
+    src: 'https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg',
+    original: 'https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg',
+    width: 320,
+    height: 212,
+    caption: 'Color Pencils (Jeshu John - designerspics.com)',
+  },
+  {
+    src: 'https://c7.staticflickr.com/9/8546/28354329294_bb45ba31fa_b.jpg',
+    original: 'https://c7.staticflickr.com/9/8546/28354329294_bb45ba31fa_b.jpg',
+    width: 320,
+    height: 213,
+    caption: 'Red Apples with other Red Fruit (foodiesfeed.com)',
+  },
+  {
+    src: 'https://c6.staticflickr.com/9/8890/28897154101_a8f55be225_b.jpg',
+    original: 'https://c6.staticflickr.com/9/8890/28897154101_a8f55be225_b.jpg',
+    width: 320,
+    height: 183,
+    caption: '37H (gratispgraphy.com)',
+  },
+  {
+    src: 'https://c5.staticflickr.com/9/8768/28941110956_b05ab588c1_b.jpg',
+    original: 'https://c5.staticflickr.com/9/8768/28941110956_b05ab588c1_b.jpg',
+    width: 240,
+    height: 320,
+    caption: '8H (gratisography.com)',
+  },
+  {
+    src: 'https://c3.staticflickr.com/9/8583/28354353794_9f2d08d8c0_b.jpg',
+    original: 'https://c3.staticflickr.com/9/8583/28354353794_9f2d08d8c0_b.jpg',
+    width: 320,
+    height: 190,
+    caption: '286H (gratisography.com)',
+  },
+  {
+    src: 'https://c7.staticflickr.com/9/8569/28941134686_d57273d933_b.jpg',
+    original: 'https://c7.staticflickr.com/9/8569/28941134686_d57273d933_b.jpg',
+    width: 320,
+    height: 148,
+    caption: '315H (gratisography.com)',
+  },
+  {
+    src: 'https://c6.staticflickr.com/9/8342/28897193381_800db6419e_b.jpg',
+    original: 'https://c6.staticflickr.com/9/8342/28897193381_800db6419e_b.jpg',
+    width: 320,
+    height: 213,
+    caption: '201H (gratisography.com)',
+  },
+  {
+    src: 'https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_b.jpg',
+    original: 'https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_b.jpg',
+    alt: 'Big Ben - London',
+    width: 248,
+    height: 320,
+    caption: 'Big Ben (Tom Eversley - isorepublic.com)',
+  },
+];

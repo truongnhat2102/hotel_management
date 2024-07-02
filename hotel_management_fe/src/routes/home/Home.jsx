@@ -7,11 +7,39 @@ import ResultsContainer from 'components/results-container/ResultsContainer';
 import { formatDate } from 'utils/date-helpers';
 import { useNavigate } from 'react-router-dom';
 import _debounce from 'lodash/debounce';
+import Carousel from './components/carousel/Carousel';
+import CardInfo from './components/card-info/CardInfo';
+import { swiperExample } from 'utils/mock-data';
 
 /**
  * Home component that renders the main page of the application.
  * It includes a navigation bar, hero cover, popular locations, results container, and footer.
  */
+
+const infoCard = [
+  {
+    id: 1,
+    title: 'Come on in',
+    description:
+      'Hosted service. Extra touches. Locally-inspired treats that make you feel right at home, on the house. We specialize in memorable first impressions and personalized experiences.',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hallmark-usen-lvp-1440x206',
+  },
+  {
+    id: 2,
+    title: 'Me time',
+    description:
+      'Take a break from the day-to-day. Our extra cozy bedding, tempting room service, premium bathroom amenities, smart TVs, and fast Wi-Fi enable you to make some time for you.',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hallmark-img-2-usen-lvp-1440x206',
+  },
+  {
+    id: 3,
+    title: 'voco life',
+    description:
+      'From AM to PM, we make it easy to savor the small indulgences in moments tailor-made for you, from sipping your morning coffee to delighting in a delicious meal and kicking off a great evening with friends.',
+    url: 'https://digital.ihg.com/is/image/ihg/voco-brand-refresh-lp-hallmark-img-3-usen-lvp-1440x206',
+  },
+];
+
 const Home = () => {
   const navigate = useNavigate();
 
@@ -140,7 +168,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <div className="overflow-x-hidden">
       <HeroCover
         locationInputValue={locationInputValue}
         numGuestsInputValue={numGuestsInputValue}
@@ -154,6 +182,33 @@ const Home = () => {
         onDatePickerIconClick={onDatePickerIconClick}
         onSearchButtonAction={onSearchButtonAction}
       />
+      <div className="w-full mt-[32px]">
+        <Carousel data={swiperExample} />
+      </div>
+      <div className="w-full flex flex-col items-center my-8">
+        <p className="text-3xl font-medium text-slate-700 text-center my-2">
+          We call our hotels voco
+        </p>
+        <div className="w-[40px] h-[3px] text-center bg-orange-300"></div>
+        <p className="text-center mt-3 max-w-[700px]">
+          voco, it means ‘to invite' and ‘call together’ originating from Latin
+          – representing our thoughtful, unstuffy and charming nature. While the
+          destinations celebrate the individualism of each hotel and location,
+          they are united by voco’s unique character and style. Embrace the
+          local feel, personal touches and laid-back attitude to create moments
+          you’ll remember long after checkout.
+        </p>
+      </div>
+      <div className="w-full flex justify-between gap-[20px] bg-gray-100 py-8 mx-2">
+        {infoCard?.map((item) => (
+          <CardInfo
+            key={item.id}
+            title={item.title}
+            imageUrl={item.url}
+            description={item.description}
+          />
+        ))}
+      </div>
       <div className="container mx-auto">
         <PopularLocations popularDestinationsData={popularDestinationsData} />
         <div className="my-8">
@@ -166,7 +221,7 @@ const Home = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
