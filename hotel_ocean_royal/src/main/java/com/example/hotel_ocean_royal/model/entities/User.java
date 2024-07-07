@@ -27,7 +27,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
-
+    private String user_fullname;
     private String username;
     private String password;
     private int user_age;
@@ -35,6 +35,7 @@ public class User {
     private String user_phoneNumber;
     private String user_email;
     private String user_idCard;
+    private String user_ava;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference

@@ -10,6 +10,7 @@ import _debounce from 'lodash/debounce';
 import Carousel from './components/carousel/Carousel';
 import CardInfo from './components/card-info/CardInfo';
 import { swiperExample } from 'utils/mock-data';
+import img1 from 'assests/logos/voco-1024x682.jpeg';
 
 /**
  * Home component that renders the main page of the application.
@@ -209,7 +210,7 @@ const Home = () => {
           />
         ))}
       </div>
-      <div className="container mx-auto">
+      {/* <div className="container mx-auto">
         <PopularLocations popularDestinationsData={popularDestinationsData} />
         <div className="my-8">
           <h2 className="text-3xl font-medium text-slate-700 text-center my-2">
@@ -222,6 +223,90 @@ const Home = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+export default Home; */}
+      <div style={{
+        fontFamily: 'Arial, sans-serif',
+        maxWidth: '800px',
+        margin: 'auto'
+      }}>
+        <div>
+          <h1 style={{
+            color: '#333',
+            marginBottom: '0.5rem'
+          }}>Step-by-step sustainability</h1>
+          <p style={{
+            color: '#666',
+            fontSize: '16px'
+          }}>We believe the journey to sustainability is a gradual one, and step by step, we are working hard to
+            ensure that every day – and every stay – bring us closer to a more sustainable future.</p>
+        </div>
+
+        <div style={{
+          display: 'flex',
+          marginTop: '20px'
+        }}>
+          <div class="image-container">
+            <img src={img1} alt="Pouring water into glass" style={{
+              width: '100%',
+              maxWidth: '400px',
+              height: 'auto'
+            }} />
+          </div>
+          <div style={{
+            marginLeft: '20px',
+            flexGrow: '1'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px'
+            }}>
+              <span style={{
+                fontSize: '24px',
+                marginRight: '10px'
+              }}>🚿</span>
+              <p>Aerated shower heads - can help reduce water consumption compared to a standard shower head.</p>
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px'
+            }}>
+              <span style={{
+                fontSize: '24px',
+                marginRight: '10px'
+              }}>🧴</span>
+              <p>Large format plant-based bathroom amenities, reducing plastic waste.</p>
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px'
+            }}>
+              <span style={{
+                fontSize: '24px',
+                marginRight: '10px'
+              }}>🛏️</span>
+              <p>The filling of our indulgent bedding is made from 100% recycled materials.</p>
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: '10px'
+            }}>
+              <span style={{
+                fontSize: '24px',
+                marginRight: '10px'
+              }}>🍶</span>
+              <p>Filtered water in reusable glass bottles where possible to help reduce single use plastic.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 };
 

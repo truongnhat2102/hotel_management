@@ -18,8 +18,9 @@ const GlobalNavbar = () => {
   return (
     <div className="relative flex flex-wrap justify-between items-center px-4 md:px-12 global-navbar__container bg-brand brand-divider-bottom shadow-md">
       <div className="flex">
-        <Link to="/">
+        <Link to="/" style={{ display: 'flex' }}>
           <img src={logo} alt="site logo" className="site-logo__img" />
+          <span style={{ marginTop: '28px', fontSize: 'x-large', color: 'white', fontWeight: 'bold' }}>ROYAL OCEAN</span>
         </Link>
       </div>
       <ul className="list-none hidden md:flex">

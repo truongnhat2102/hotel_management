@@ -36,12 +36,12 @@ public class Room {
     private String room_amountPeople;
     private String room_description;
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
-    @JsonBackReference
-    private Set<Order> orders;
+    // @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    // @JsonBackReference
+    // private Set<Order> orders;
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
-    @JsonBackReference
-    private Set<FeedBack> feedBacks;
+    // @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    // @JsonBackReference
+    // private Set<FeedBack> feedBacks;
 
 }

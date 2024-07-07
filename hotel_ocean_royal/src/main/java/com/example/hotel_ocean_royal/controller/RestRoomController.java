@@ -14,14 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotel_ocean_royal.model.entities.Room;
 import com.example.hotel_ocean_royal.model.service.RoomService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/api/room")
 public class RestRoomController {
     @Autowired
     RoomService RoomService;
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping("")
     public ResponseEntity<?> getAll() {
         List<Room> Rooms = RoomService.getAll();
         if (Rooms.isEmpty()) {
@@ -59,5 +61,15 @@ public class RestRoomController {
         RoomService.remove(id);
         return ResponseEntity.ok(Room);
     }
+
+    @GetMapping("/verticalFilters")
+    public ResponseEntity<?> getByVerticalFilters() {
+        List<Room> Rooms = RoomService.getAll();
+        if (Rooms.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(Rooms);
+    }
+    
     
 }
