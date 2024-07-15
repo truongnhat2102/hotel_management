@@ -28,4 +28,8 @@ public class OrderService {
     public void remove(long Order_id){
         OrderRepo.deleteById(Order_id);
     }
+
+    public List<Order> getOrdersByUserId(long user_id) {
+        return OrderRepo.getOrdersByUserId(user_id);
+    }
 }

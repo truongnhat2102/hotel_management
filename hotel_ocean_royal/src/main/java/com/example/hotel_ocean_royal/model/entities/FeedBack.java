@@ -1,6 +1,12 @@
 package com.example.hotel_ocean_royal.model.entities;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Table(name = "feedback")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FeedBack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +34,15 @@ public class FeedBack {
 
     private String feedback_comment;
     private String feedback_vote;
+    private LocalDateTime feedback_dateEdit;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "room_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room", referencedColumnName = "room_id")
+    @JsonBackReference
     private Room room;
 
 }

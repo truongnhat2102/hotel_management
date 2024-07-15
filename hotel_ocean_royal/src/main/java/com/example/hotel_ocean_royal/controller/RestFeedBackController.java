@@ -1,5 +1,6 @@
 package com.example.hotel_ocean_royal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,15 @@ public class RestFeedBackController {
         }
         FeedBackService.remove(id);
         return ResponseEntity.ok(FeedBack);
+    }
+
+    @GetMapping("/room/{room_id}/reviews")
+    public ResponseEntity<?> getReviewsByRoom_id(@PathVariable(name = "room_id") long room_id){
+        ArrayList<FeedBack> FeedBacks = FeedBackService.getFeedBacksByRoom(room_id);
+        if (FeedBacks.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(FeedBacks);
     }
     
 }

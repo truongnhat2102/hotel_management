@@ -1,5 +1,6 @@
 package com.example.hotel_ocean_royal.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,9 @@ public class FeedBackService {
 
     public void remove(long FeedBack_id){
         FeedBackRepo.deleteById(FeedBack_id);
+    }
+
+    public ArrayList<FeedBack> getFeedBacksByRoom(long room_id){
+        return FeedBackRepo.getFeedBacksByRoom(room_id);
     }
 }

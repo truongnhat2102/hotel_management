@@ -1,0 +1,49 @@
+.chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 1000; /* Ensure it's above other content */
+  }
+  
+  .toggle-button {
+    display: block;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .chat-room {
+    border: 1px solid #cccccc;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Adds shadow for better visibility */
+  }
+  
+  .messages {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #cccccc;
+    margin-bottom: 10px;
+  }
+  
+  .message-input {
+    display: flex;
+  }
+  
+  .message-input input {
+    flex-grow: 1;
+    padding: 8px;
+  }
+  
+  .message-input button {
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotel_ocean_royal.model.entities.Room;
 import com.example.hotel_ocean_royal.model.service.RoomService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -65,6 +64,48 @@ public class RestRoomController {
     @GetMapping("/verticalFilters")
     public ResponseEntity<?> getByVerticalFilters() {
         List<Room> Rooms = RoomService.getAll();
+        if (Rooms.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(Rooms);
+    }
+
+    @GetMapping("/topServices")
+    public ResponseEntity<?> getRoomsTopService(){
+        List<Room> Rooms = RoomService.getRoomsTopService();
+        if (Rooms.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(Rooms);
+    }
+
+    @GetMapping("/availableRoom")
+    public ResponseEntity<?> getAvailableRoom(){
+        List<Room> Rooms = RoomService.getAvailableRoom();
+        if (Rooms.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(Rooms);
+    }
+
+    @GetMapping("/checkIn/{room_id}")
+    public ResponseEntity<?> changeStatusCheckIn(@PathVariable("room_id") long room_id){
+        Room room = RoomService.getById(room_id);
+        room.setRoom_status("Not Empty");
+        RoomService.save(room);
+        List<Room> Rooms = RoomService.getRoomsTopService();
+        if (Rooms.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(Rooms);
+    }
+
+    @GetMapping("/checkOut/{room_id}")
+    public ResponseEntity<?> changeStatusCheckOut(@PathVariable("room_id") long room_id){
+        Room room = RoomService.getById(room_id);
+        room.setRoom_status("Empty");
+        RoomService.save(room);
+        List<Room> Rooms = RoomService.getRoomsTopService();
         if (Rooms.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

@@ -28,4 +28,14 @@ public class RoomService {
     public void remove(long Room_id){
         RoomRepo.deleteById(Room_id);
     }
+
+    public List<Room> getRoomsTopService() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRoomsTopService'");
+    }
+
+    public List<Room> getAvailableRoom() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAvailableRoom'");
+    }
 }

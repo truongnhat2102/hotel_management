@@ -1,8 +1,10 @@
 package com.example.hotel_ocean_royal.model.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,6 +26,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Table(name = "room")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +38,22 @@ public class Room {
     private String room_type;
     private String room_amountPeople;
     private String room_description;
+    private String room_img1;
+    private String room_img2;
+    private String room_img3;
+    private String room_img4;
+    private String room_img5;
+    private String room_img6;
 
-    // @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     // @JsonBackReference
-    // private Set<Order> orders;
+    private Set<FeedBack> feedBacks;
 
-    // @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
-    // @JsonBackReference
-    // private Set<FeedBack> feedBacks;
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Set<Order> orders;
+
+   
 
 }

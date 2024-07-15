@@ -59,5 +59,14 @@ public class RestOrderController {
         OrderService.remove(id);
         return ResponseEntity.ok(Order);
     }
+
+    @GetMapping("/booking/{user_id}")
+    public ResponseEntity<?> getAllOrderById(@PathVariable("user_id") long user_id) {
+        List<Order> Orders = OrderService.getOrdersByUserId(user_id);
+        if (Orders.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(Orders);
+    }
     
 }

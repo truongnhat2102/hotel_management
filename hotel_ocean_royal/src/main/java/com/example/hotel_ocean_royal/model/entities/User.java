@@ -36,6 +36,8 @@ public class User {
     private String user_email;
     private String user_idCard;
     private String user_ava;
+    private String user_status;
+    private String role_user;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference
