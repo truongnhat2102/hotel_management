@@ -26,7 +26,6 @@ import com.example.hotel_ocean_royal.security.TokenProvider;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-
 import jakarta.mail.MessagingException;
 
 @RestController
@@ -104,40 +103,31 @@ public class JwtAuthenticationController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/changePassword")
+    @PostMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestParam("token") String token,
             @RequestParam("username") String username, @RequestBody PasswordChangeDTO passwordChangeDTO) {
         if (tokenProvider.validateToken(token)) {
-            Optional<User> User = userService.findByUsername(username);
-            for (User oldUser : userService.getAll()) {
-                if (username.equals(oldUser.getUsername())) {
-                    System.out.println("Old Password: " + passwordChangeDTO.getOldPassword());
-                    System.out.println("New Password: " + passwordChangeDTO.getNewPassword());
-                    System.out.println("Confirm Password: " + passwordChangeDTO.getConfirmPassword());
-
-                    if (passwordChangeDTO.getOldPassword() == null ||
-                            passwordChangeDTO.getNewPassword() == null ||
-                            passwordChangeDTO.getConfirmPassword() == null) {
-                        return new ResponseEntity<>("Missing required fields", HttpStatus.BAD_REQUEST);
-                    }
-
-                    if (!passwordChangeDTO.getNewPassword().equals(passwordChangeDTO.getConfirmPassword())) {
-                        return new ResponseEntity<>("New password and confirm password do not match",
-                                HttpStatus.BAD_REQUEST);
-                    }
-
-                    if (!oldUser.getPassword().equals(passwordChangeDTO.getOldPassword())) {
-                        return new ResponseEntity<>("Old password is incorrect", HttpStatus.UNAUTHORIZED);
-                    }
-
-                    oldUser.setPassword(passwordChangeDTO.getNewPassword());
-                    userService.save(oldUser);
-
-                    return new ResponseEntity<>("Password changed successfully", HttpStatus.OK);
-                }
+            if (passwordChangeDTO.getNewPassword() == null ||
+                    passwordChangeDTO.getConfirmPassword() == null) {
+                return new ResponseEntity<>("Missing required fields", HttpStatus.BAD_REQUEST);
             }
-            return ResponseEntity.ok(User);
+
+            User existingCustomer = userService.findByUsername(username).orElse(null);
+            if (existingCustomer == null) {
+                return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
+            }
+
+            if (!passwordChangeDTO.getNewPassword().equals(passwordChangeDTO.getConfirmPassword())) {
+                return new ResponseEntity<>("New password and confirm password do not match",
+                        HttpStatus.BAD_REQUEST);
+            }
+
+            existingCustomer.setPassword(passwordChangeDTO.getNewPassword());
+            userService.save(existingCustomer);
+
+            return new ResponseEntity<>("Password changed successfully", HttpStatus.OK);
         }
+
         return new ResponseEntity<>(HttpStatus.GATEWAY_TIMEOUT);
 
     }

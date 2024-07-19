@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GlobalSearchBox from '../../components/global-search-box/GlobalSearchbox';
 import ResultsContainer from '../../components/results-container/ResultsContainer';
-// import { networkAdapter } from 'services/NetworkAdapter';
 import isEmpty from '../../utils/helpers';
 import { MAX_GUESTS_INPUT_VALUE } from '../../utils/constants';
 import { formatDate } from '../../utils/date-helpers';
@@ -11,29 +10,16 @@ import PaginationController from '../../components/ux/pagination-controller/Pagi
 import { SORTING_FILTER_LABELS } from '../../utils/constants';
 
 const HotelsSearch = () => {
-  // State for managing date picker visibility
   const [isDatePickerVisible, setisDatePickerVisible] = useState(false);
-
-  // State for managing location input value
   const [locationInputValue, setLocationInputValue] = useState('pune');
-
-  // State for managing number of guests input value
   const [numGuestsInputValue, setNumGuestsInputValue] = useState('');
-
-  // State for storing available cities
   const [availableCities, setAvailableCities] = useState([]);
-
-  // State for managing current results page
   const [currentResultsPage, setCurrentResultsPage] = useState(1);
-
-  // State for managing filters data
   const [filtersData, setFiltersData] = useState({
     isLoading: true,
     data: [],
     errors: [],
   });
-
-  // State for storing hotels search results
   const [hotelsResults, setHotelsResults] = useState({
     isLoading: true,
     data: [],
@@ -47,26 +33,17 @@ const HotelsSearch = () => {
       key: 'selection',
     },
   ]);
-
-  // State for managing sorting filter value
   const [sortByFilterValue, setSortByFilterValue] = useState({
     value: 'default',
     label: 'Sort by',
   });
-
-  // State for managing selected filters
   const [selectedFiltersState, setSelectedFiltersState] = useState({});
 
   const [filteredTypeheadResults, setFilteredTypeheadResults] = useState([]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // const debounceFn = useCallback(_debounce(queryResults, 1000), []);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const location = useLocation();
-
-  // Options for sorting filter
   const sortingFilterOptions = [
     { value: 'default', label: 'Sort by' },
     { value: 'priceLowToHigh', label: SORTING_FILTER_LABELS.PRICE_LOW_TO_HIGH },
@@ -78,10 +55,32 @@ const HotelsSearch = () => {
     setSortByFilterValue(selectedOption);
   };
 
+  // Assuming you have a function to apply filters to your hotels
+  const filterHotels = (allFilters, hotelsData) => {
+    const filteredHotels = hotelsData.filter(hotel => {
+      return allFilters.every(filterGroup => {
+        // Only check filters that are selected
+        const selectedFilters = filterGroup.filters.filter(f => f.isSelected);
+        if (selectedFilters.length === 0) return true; // No filter selected in this group
+        return selectedFilters.some(filter => {
+          // Safely access feedbacks if they exist
+          if (filterGroup.filterId === 'star_ratings' && hotel.feedbacks && hotel.feedbacks.length > 0) {
+            return hotel.feedbacks[0].feedback_vote >= filter.value;
+          } else if (filterGroup.filterId === 'propety_type') {
+            return hotel.room_type === filter.value;
+          }
+          return false;
+        });
+      });
+    });
+  
+    return filteredHotels;
+  };
 
   const onFiltersUpdate = (updatedFilter) => {
-    setSelectedFiltersState(
-      selectedFiltersState.map((filterGroup) => {
+    // Update the selected filters state and filter the hotels data
+    setSelectedFiltersState((selectedFiltersState) => {
+      const newFiltersState = selectedFiltersState.map((filterGroup) => {
         if (filterGroup.filterId === updatedFilter.filterId) {
           return {
             ...filterGroup,
@@ -97,8 +96,20 @@ const HotelsSearch = () => {
           };
         }
         return filterGroup;
-      })
-    );
+      });
+      // Once the filters are updated, apply them to filter the hotels data
+      const filteredHotels = filterHotels(newFiltersState, hotelsResults.data);
+
+      // Update the hotels results state
+      
+      setHotelsResults({
+        isLoading: false,
+        data: filteredHotels,
+        errors: [],
+      });
+
+      return newFiltersState;
+    });
   };
 
   const onDateChangeHandler = (ranges) => {
@@ -147,7 +158,6 @@ const HotelsSearch = () => {
 
   const onLocationChangeInput = async (newValue) => {
     setLocationInputValue(newValue);
-    // debounceFn(newValue, availableCities);
   };
 
 
@@ -184,7 +194,7 @@ const HotelsSearch = () => {
 
 
   const fetchHotels = async (filters) => {
-    const hotelsResultsResponse = await fetch('http://localhost:8080/api/room');
+    const hotelsResultsResponse = await fetch(`http://localhost:8080/api/room?checkIn=${dateRange[0].startDate}&checkOut=${dateRange[0].endDate}`);
     if (hotelsResultsResponse) {
       setHotelsResults({
         isLoading: false,
@@ -204,17 +214,20 @@ const HotelsSearch = () => {
           {
             id: '5_star_rating',
             title: '5 Star',
-            value: '5',
+            value: 5,
+            
           },
           {
             id: '4_star_rating',
             title: '4 Star',
-            value: '4',
+            value: 4,
+            
           },
           {
             id: '3_star_rating',
             title: '3 Star',
-            value: '3',
+            value: 3,
+            
           },
         ],
       },
@@ -225,14 +238,20 @@ const HotelsSearch = () => {
           {
             id: 'prop_type_hotel',
             title: 'PRESIDENT',
+            value: 'President',
+            
           },
           {
             id: 'prop_type_apartment',
             title: 'VIP',
+            value: 'VIP',
+            
           },
           {
             id: 'prop_type_villa',
-            title: 'NORMAL',
+            title: 'Normal',
+            value: 'Normal',
+            
           },
         ],
       },
@@ -263,22 +282,17 @@ const HotelsSearch = () => {
       return prev + 1;
     });
   };
-
-  // Fetches the list of available cities
   const fetchAvailableCities = async () => {
-    
-      setAvailableCities(['pune', 'bangalore', 'mumbai']);
-    
+
+    setAvailableCities(['pune', 'bangalore', 'mumbai']);
+
   };
 
-  // Fetch available cities and initial data on component mount
   useEffect(() => {
     fetchAvailableCities();
     getVerticalFiltersData();
   }, []);
 
-  // And update location input value if city is present in the URL
-  // Also update number of guests input value if numGuests is present in the URL
   useEffect(() => {
     if (searchParams.get('city')) {
       setLocationInputValue(searchParams.get('city'));
@@ -289,7 +303,6 @@ const HotelsSearch = () => {
     }
   }, [searchParams]);
 
-  // Update selected filters state when filters data changes
   useEffect(() => {
     setSelectedFiltersState(
       filtersData.data.map((filterGroup) => ({
@@ -318,7 +331,6 @@ const HotelsSearch = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFiltersState, currentResultsPage, sortByFilterValue]);
 
-  // Fetch hotels when location input value changes
   useEffect(() => {
     if (location.state) {
       const { city, numGuest, checkInDate, checkOutDate } = location.state;
@@ -360,7 +372,7 @@ const HotelsSearch = () => {
       <ResultsContainer
         hotelsResults={hotelsResults}
         enableFilters={true}
-        filtersData={filtersData}
+        filtersData={filtersData.data}
         onFiltersUpdate={onFiltersUpdate}
         onClearFiltersAction={onClearFiltersAction}
         selectedFiltersState={selectedFiltersState}

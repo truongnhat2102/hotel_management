@@ -16,13 +16,13 @@ function UserManagement({ UserFetch }) {
     };
 
     const handleSaveUser = async (user) => {
-        const response = await fetch('http://localhost:8080/user/save', {
+        const response = await fetch('http://localhost:8080/user/save/customer', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
         });
         if (response.ok) {
-            if (user.user_id) {
+            if (user.user_id != 0) {
                 setUsers(Users.map(e => e.user_id === user.user_id ? user : e));
             } else {
                 const newUser = { ...user, user_id: Math.max(...Users.map(e => e.user_id)) + 1 };
@@ -32,7 +32,15 @@ function UserManagement({ UserFetch }) {
         handleCloseModal();
     };
 
-    const handleDeleteUser = (id) => {
+    const handleDeleteUser = async (id) => {
+        const response = await fetch(`http://localhost:8080/user/delete/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        if (!response.ok) {
+            console.error(response.status);
+            return;
+        }
         setUsers(Users.filter(User => User.user_id !== id));
     };
 

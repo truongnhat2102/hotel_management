@@ -42,25 +42,48 @@ const HotelDetailsViewCard = ({ hotelDetails }) => {
       data: [],
     });
     const fetchHotelReviews = async () => {
-      const response = await fetch(`http://localhost:8080/feedback/room/${hotelDetails.room_id}/reviews`);
-      const data = await response.json();
-      const averageRating = () => {
-        return data.reduce((acc, cur) => acc + cur.feedback_vote, 0) / data.length;
+      try {
+        const response = await fetch(`http://localhost:8080/feedback/room/${hotelDetails.room_id}/reviews`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
+        // Ensure the response has content before trying to parse it
+        const text = await response.text();
+        if (!text) {
+          console.error('No data returned from the server');
+          return;
+        }
 
-      };
-      const metadata = {
-        averageRating: averageRating(),
-        ratingsCount: data.length,
-        starCounts: 5
+        const data = JSON.parse(text);
+        if (data.length === 0) {
+          console.error('No reviews found.');
+          return;
+        }
+
+        const averageRating = data.reduce((acc, cur) => acc + cur.feedback_vote, 0) / data.length;
+        const metadata = {
+          averageRating: averageRating,
+          ratingsCount: data.length,
+          starCounts: 5
+        };
+
+        setReviewData({
+          isLoading: false,
+          data: data,
+          metadata: metadata,
+          // Assuming pagination details are correctly included in the response
+          pagination: response.paging,
+        });
+
+      } catch (error) {
+        console.error('Failed to fetch hotel reviews:', error.message);
+        // Handle the error appropriately in your UI
+        setReviewData({
+          isLoading: false,
+          error: error.message
+        });
       }
-      setReviewData({
-        isLoading: false,
-        data: data,
-        metadata: metadata,
-        pagination: response.paging,
-      });
-
     };
     fetchHotelReviews();
   }, [hotelDetails.hotelCode, currentReviewsPage]);
@@ -106,9 +129,11 @@ const HotelDetailsViewCard = ({ hotelDetails }) => {
         </div>
         <UserReviews
           reviewData={reviewData}
+          setReviewData={setReviewData}
           handlePageChange={handlePageChange}
           handlePreviousPageChange={handlePreviousPageChange}
           handleNextPageChange={handleNextPageChange}
+          room_id={hotelDetails.room_id}
         />
       </div>
       <HotelBookingDetailsCard hotelCode={hotelDetails.room_id} />

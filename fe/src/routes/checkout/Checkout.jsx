@@ -29,15 +29,17 @@ const Checkout = () => {
     data: {},
   });
 
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   const dismissToast = () => {
     setToastMessage('');
   };
 
   // Form state for collecting user payment and address information
   const [formData, setFormData] = useState({
-    email: userDetails?.email ? userDetails?.email : '',
-    nameBooker: '',
-    phoneNumber: '',
+    email: user?.username || '',
+    nameBooker: user?.user_fullname || '',
+    phoneNumber: user?.user_phoneNumber || '',
     address: ''
   });
   const room_id = searchParams.get('hotelCode');

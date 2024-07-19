@@ -18,6 +18,7 @@ public class FeedBackDTO {
     private LocalDateTime feedbacks_editTime;
     private int amount_star;
     private String username;
-    private int room_id;
+    private long room_id;
+    private long room;
    
 }

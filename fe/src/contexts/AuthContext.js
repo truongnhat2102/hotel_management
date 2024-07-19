@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [authCheckTrigger, setAuthCheckTrigger] = useState(false);
   const [user, setUser] = useState(() => {
-    return JSON.parse(sessionStorage.getItem("user") || '{"username": "", "password": ""}');
+    return JSON.parse(sessionStorage.getItem("user"));
   });
 
   useEffect(() => {

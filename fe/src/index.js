@@ -19,6 +19,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './contexts/AuthContext';
 import AdminDashboard from './routes/admin-page/AdminDashboard';
 import EmployeeDashboard from './routes/employee-page/EmployeeDashboard';
+import HandleForgotPassword from './routes/forgot-password/HandleForgotPassword';
 // import LandingPage from 'routes/landing-page/LandingPage';
 // import LandingPageLayout from 'routes/layouts/landing-page-layout/LandingPageLayout';
 // import { AdminTable } from 'routes/admin-table/AdminTable';
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: '/employee',
         element: <EmployeeDashboard/>
+      },
+      {
+        path: '/changePassword',
+        element: <HandleForgotPassword/>
       }
     ],
   },

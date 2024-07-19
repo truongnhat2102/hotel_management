@@ -1,7 +1,26 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 
-const RatingsOverview = ({ averageRating, ratingsCount, starCounts }) => {
+const RatingsOverview = ({reviewData}) => {
+  const [averageRating, setAverageRating] = useState(reviewData.data.reduce((acc, cur) => acc + cur.feedback_vote, 0) / reviewData.data.length || 0);
+  const [ratingsCount, setRatingsCount] = useState(reviewData.data.length || 0);
+  const [starCounts, setStartCounts] = useState([3,4,5,6,7]);
+  
+
+  // useEffect = () => {
+  //   for (let index = 0; index < 5; index++) {
+  //     let count = 0;
+  //     reviewData.data.map(r => {
+  //       if (r.feedback_vote == index+1) {
+  //         count++;
+  //       }
+  //     })
+  //     setStartCounts([...starCounts, count])
+      
+  //   }
+  // }
+
   return (
     <div className=" w-full md:w-3/5">
       <div className="text-lg font-semibold text-gray-700">Overall Rating</div>

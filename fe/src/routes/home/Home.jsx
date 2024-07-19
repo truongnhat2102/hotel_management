@@ -233,67 +233,29 @@ const Home = () => {
             ensure that every day – and every stay – bring us closer to a more sustainable future.</p>
         </div>
 
-        <div style={{
-          display: 'flex',
-          marginTop: '20px'
-        }}>
-          <div class="image-container">
-            <img src={img1} alt="Pouring water into glass" style={{
-              width: '100%',
-              maxWidth: '400px',
-              height: 'auto'
-            }} />
-          </div>
-          <div style={{
-            marginLeft: '20px',
-            flexGrow: '1'
-          }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px'
-            }}>
-              <span style={{
-                fontSize: '24px',
-                marginRight: '10px'
-              }}>🚿</span>
-              <p>Aerated shower heads - can help reduce water consumption compared to a standard shower head.</p>
-            </div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px'
-            }}>
-              <span style={{
-                fontSize: '24px',
-                marginRight: '10px'
-              }}>🧴</span>
-              <p>Large format plant-based bathroom amenities, reducing plastic waste.</p>
-            </div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px'
-            }}>
-              <span style={{
-                fontSize: '24px',
-                marginRight: '10px'
-              }}>🛏️</span>
-              <p>The filling of our indulgent bedding is made from 100% recycled materials.</p>
-            </div>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px'
-            }}>
-              <span style={{
-                fontSize: '24px',
-                marginRight: '10px'
-              }}>🍶</span>
-              <p>Filtered water in reusable glass bottles where possible to help reduce single use plastic.</p>
-            </div>
-          </div>
+        <div className="flex flex-col md:flex-row mt-5 bg-white shadow-xl rounded-lg overflow-hidden">
+    <div className="max-w-sm w-full md:w-1/3">
+        <img src={img1} alt="Pouring water into glass" className="w-full h-auto object-cover" />
+    </div>
+    <div className="p-5 flex-grow">
+        <div className="flex items-center mb-4">
+            <span className="text-3xl mr-3">🚿</span>
+            <p className="text-md text-gray-700">Aerated shower heads can help reduce water consumption compared to a standard shower head.</p>
         </div>
+        <div className="flex items-center mb-4">
+            <span className="text-3xl mr-3">🧴</span>
+            <p className="text-md text-gray-700">Large format plant-based bathroom amenities, reducing plastic waste.</p>
+        </div>
+        <div className="flex items-center mb-4">
+            <span className="text-3xl mr-3">🛏️</span>
+            <p className="text-md text-gray-700">The filling of our indulgent bedding is made from 100% recycled materials.</p>
+        </div>
+        <div className="flex items-center mb-4">
+            <span className="text-3xl mr-3">🍶</span>
+            <p className="text-md text-gray-700">Filtered water in reusable glass bottles where possible to help reduce single use plastic.</p>
+        </div>
+    </div>
+</div>
       </div>
     </div >
   );

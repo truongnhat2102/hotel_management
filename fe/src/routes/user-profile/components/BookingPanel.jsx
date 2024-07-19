@@ -2,7 +2,7 @@ const BookingPanel = ({ bookings }) => {
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-md">
       <ul className="divide-y divide-gray-200">
-        {bookings.map((booking, index) => (
+        {bookings?.map((booking, index) => (
           <li key={index} className="bg-white hover:bg-gray-50">
             <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-between">

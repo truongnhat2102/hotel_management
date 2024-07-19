@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotel_ocean_royal.dto.PasswordChangeDTO;
+import com.example.hotel_ocean_royal.dto.ProfileDTO;
+import com.example.hotel_ocean_royal.dto.UserDTO;
 import com.example.hotel_ocean_royal.model.entities.User;
 import com.example.hotel_ocean_royal.model.service.UserService;
 
@@ -47,15 +49,30 @@ public class RestUserController {
         }
         return ResponseEntity.ok(user);
     }
+
+    @PostMapping("/edit-profile")
+    public ResponseEntity<?> editProfile(@RequestBody ProfileDTO profileDTO) {
+        User newProfile = userService.saveProfile(profileDTO);
+        return ResponseEntity.ok(newProfile);
+    }
     
 
-    @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody User user) {
+    @PostMapping("/save/employee")
+    public ResponseEntity<?> saveEmployee(@RequestBody UserDTO user) {
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }
-        userService.save(user);
-        return ResponseEntity.ok(user);
+        User newUser = userService.saveEmployee(user);
+        return ResponseEntity.ok(newUser);
+    }
+
+    @PostMapping("/save/customer")
+    public ResponseEntity<?> saveCustomer(@RequestBody UserDTO user) {
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        User newUser = userService.saveCustomer(user);
+        return ResponseEntity.ok(newUser);
     }
 
     
@@ -92,7 +109,7 @@ public class RestUserController {
             return new ResponseEntity<>("New password and confirm password do not match", HttpStatus.BAD_REQUEST);
         }
       
-        if (!passwordEncoder.matches(passwordChangeDTO.getOldPassword(), existinguser.getPassword())) {
+        if (!passwordChangeDTO.getOldPassword().equals(existinguser.getPassword())) {
             return new ResponseEntity<>("Old password is incorrect", HttpStatus.UNAUTHORIZED);
         }
     

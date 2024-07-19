@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.hotel_ocean_royal.dto.FeedBackDTO;
 import com.example.hotel_ocean_royal.model.entities.FeedBack;
 import com.example.hotel_ocean_royal.model.service.FeedBackService;
 
@@ -42,12 +43,12 @@ public class RestFeedBackController {
     
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody FeedBack FeedBack) {
+    public ResponseEntity<?> save(@RequestBody FeedBackDTO FeedBack) {
         if (FeedBack == null) {
             return ResponseEntity.badRequest().build();
         }
-        FeedBackService.save(FeedBack);
-        return ResponseEntity.ok(FeedBack);
+        FeedBack newFeedback = FeedBackService.save(FeedBack);
+        return ResponseEntity.ok(newFeedback);
     }
 
     

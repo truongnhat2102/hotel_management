@@ -12,7 +12,8 @@ const UserReviews = ({
   handlePageChange,
   handlePreviousPageChange,
   handleNextPageChange,
-  room_id
+  room_id,
+  setReviewData
 }) => {
   const [userRating, setUserRating] = useState(0);
 
@@ -34,36 +35,47 @@ const UserReviews = ({
   };
 
   const handleReviewSubmit = async () => {
-    if (userRating === 0) {
-      setToastMessage({
-        type: 'error',
-        message: 'Please select a rating before submitting.',
+    console.log(reviewData.data);
+    try {
+      const response = await fetch('http://localhost:8080/feedback/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount_star: userRating,
+          feedbacks_content: userReview,
+          username: user.username,
+          room_id: room_id,
+          room: room_id
+        })
       });
-      return;
-    }
-    // TODO: Add validation for userRating and userReview
-    const response = await fetch('http://localhost:8080/feedbacks/save', {
-      method: 'POST',
-      body: {
-        amount_star: userRating,
-        feedbacks_content: userReview,
-        username: user.username,
-        room_id: room_id
-      }
+      
 
-    });
-    if (response && response.errors.length === 0 && response.data.status) {
-      setToastMessage({
-        type: 'success',
-        message: response.data.status,
-      });
-    } else {
+      if (response.ok) {
+        const responseData = await response.json();
+        setToastMessage({
+          type: 'success',
+          message: "Oke",
+        });
+        setReviewData({
+          isLoading: false,
+          data: [...reviewData.data, responseData],
+        })
+
+      } else {
+        setToastMessage({
+          type: 'error',
+          message: 'Review submission failed',
+        });
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
       setToastMessage({
         type: 'error',
-        message: 'Review submission failed',
+        message: 'Network or server error',
       });
     }
-    setShouldHideUserRatingsSelector(true);
   };
 
   const handleUserReviewChange = (review) => {
@@ -76,7 +88,7 @@ const UserReviews = ({
     <div className="flex flex-col p-4 border-t">
       <h1 className="text-xl font-bold text-gray-700">User Reviews</h1>
       <div className="flex flex-col md:flex-row py-4 bg-white shadow-sm gap-6">
-        {reviewData.data.length === 0 ? (
+        {reviewData?.data?.length === 0 ? (
           <div className="w-3/5">
             <span className="text-gray-500 italic">
               Be the first to leave a review!
@@ -84,9 +96,7 @@ const UserReviews = ({
           </div>
         ) : (
           <RatingsOverview
-            averageRating={reviewData.metadata.averageRating}
-            ratingsCount={reviewData.metadata.totalReviews}
-            starCounts={reviewData.metadata.starCounts}
+            reviewData = {reviewData}
           />
         )}
         {shouldHideUserRatingsSelector ? null : (
@@ -112,9 +122,9 @@ const UserReviews = ({
           <Loader height={'600px'} />
         ) : (
           <div>
-            {reviewData.data.map((review, index) => (
+            {reviewData.data.map(review => (
               <Review
-                key={index}
+                key={review.feedback_id}
                 reviewerName={review.user.username}
                 reviewDate={review.feedback_dateEdit}
                 review={review.feedback_comment}

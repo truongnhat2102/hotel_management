@@ -75,6 +75,8 @@ public class RestVNPaymentController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a");
             LocalDateTime order_checkindate = LocalDateTime.parse(arr[2], formatter);
             LocalDateTime order_checkoutdate = LocalDateTime.parse(arr[3], formatter);
+            room.setRoom_status("Not Empty");
+            roomService.save(room);
             Order order = new Order(0, LocalDateTime.now(), order_checkindate, order_checkoutdate, totalPrice, status, null, user, room);
             OrderService.save(order);
         }

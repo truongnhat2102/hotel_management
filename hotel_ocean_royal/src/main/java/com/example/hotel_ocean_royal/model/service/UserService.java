@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.hotel_ocean_royal.dto.ProfileDTO;
+import com.example.hotel_ocean_royal.dto.UserDTO;
 import com.example.hotel_ocean_royal.exception.BadRequestException;
 import com.example.hotel_ocean_royal.model.entities.User;
 import com.example.hotel_ocean_royal.model.repo.UserRepo;
@@ -127,11 +129,68 @@ public class UserService {
         String fromAddress = "chumlu2102@gmail.com";
         String senderName = "Royal Ocean Hotel";
         String subject = "Please click the button to change your password";
-        String content = "Dear [[name]],<br>"
-                + "Please click the link below to click the button to change your password:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                + "Thank you,<br>"
-                + "Your company name.";
+        String content = "<!DOCTYPE html>\n" + //
+                        "<html lang=\"en\">\n" + //
+                        "<head>\n" + //
+                        "<meta charset=\"UTF-8\">\n" + //
+                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" + //
+                        "<style>\n" + //
+                        "    body {\n" + //
+                        "        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Modern and clean font */\n" + //
+                        "        background-color: #fafafa; /* Soft gray background */\n" + //
+                        "        color: #333; /* Dark gray text for better readability */\n" + //
+                        "        margin: 0;\n" + //
+                        "        padding: 0;\n" + //
+                        "        text-align: center; /* Centers the text for a modern look */\n" + //
+                        "    }\n" + //
+                        "    .email-container {\n" + //
+                        "        background-color: #ffffff; /* Crisp white background */\n" + //
+                        "        width: 100%;\n" + //
+                        "        max-width: 600px; /* Restricts email width for readability */\n" + //
+                        "        margin: 40px auto; /* Centers container with top and bottom margin */\n" + //
+                        "        padding: 20px;\n" + //
+                        "        border-radius: 12px; /* Smooth rounded corners */\n" + //
+                        "        box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* More pronounced shadow for depth */\n" + //
+                        "        border-top: 4px solid #0056b3; /* Accent border at the top */\n" + //
+                        "    }\n" + //
+                        "    .button {\n" + //
+                        "        background-color: #0056b3; /* Deep blue background */\n" + //
+                        "        color: #ffffff; /* White text for contrast */\n" + //
+                        "        text-decoration: none; /* No underline */\n" + //
+                        "        padding: 15px 30px; /* Larger padding for a bigger button */\n" + //
+                        "        border-radius: 25px; /* Pill-shaped button */\n" + //
+                        "        font-weight: bold; /* Bold text */\n" + //
+                        "        font-size: 18px; /* Larger font size */\n" + //
+                        "        transition: background-color 0.3s; /* Smooth transition for hover effect */\n" + //
+                        "        border: none; /* No border */\n" + //
+                        "        cursor: pointer; /* Cursor indicates clickable */\n" + //
+                        "        box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for 3D effect */\n" + //
+                        "    }\n" + //
+                        "    .button:hover {\n" + //
+                        "        background-color: #004494; /* Slightly darker blue on hover */\n" + //
+                        "    }\n" + //
+                        "    h3 {\n" + //
+                        "        color: #333; /* Consistent text color */\n" + //
+                        "        margin-top: 0;\n" + //
+                        "    }\n" + //
+                        "    p {\n" + //
+                        "        font-size: 16px; /* Optimal font size for reading */\n" + //
+                        "        line-height: 1.5; /* Improved line height for readability */\n" + //
+                        "    }\n" + //
+                        "</style>\n" + //
+                        "</head>\n" + //
+                        "<body>\n" + //
+                        "<div class=\"email-container\">\n" + //
+                        "    <h3>Change Your Password</h3>\n" + //
+                        "    <p>Dear [[name]],</p>\n" + //
+                        "    <p>Please click the button below to proceed with changing your password. This ensures your account remains secure and private.</p>\n" + //
+                        "    <p>\n" + //
+                        "        <a href=\"[[URL]]\" target=\"_self\" class=\"button\">Verify Account</a>\n" + //
+                        "    </p>\n" + //
+                        "    <p>Thank you for your attention,<br>Your company name.</p>\n" + //
+                        "</div>\n" + //
+                        "</body>\n" + //
+                        "</html>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -147,6 +206,21 @@ public class UserService {
         helper.setText(content, true);
         mailSender.send(message);
 
+    }
+
+    public User saveEmployee(UserDTO user) {
+        User newUser = new User(user.getUser_id(), user.getUser_fullname(), user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getUser_age(), user.getUser_gender(), user.getUser_phoneNumber(), user.getUser_email(), user.getUser_idCard(), user.getUser_ava(), "Not_Confirmed", "ROLE_EMPLOYEE", null, null);
+        return userRepo.save(newUser);
+    }
+
+    public User saveCustomer(UserDTO user) {
+        User newUser = new User(user.getUser_id(), user.getUser_fullname(), user.getUsername(), passwordEncoder.encode(user.getPassword()), user.getUser_age(), user.getUser_gender(), user.getUser_phoneNumber(), user.getUser_email(), user.getUser_idCard(), user.getUser_ava(), "Not_Confirmed", "ROLE_USER", null, null);
+        return userRepo.save(newUser);
+    }
+
+    public User saveProfile(ProfileDTO profileDTO) {
+        User user = new User(profileDTO.getUser_id(), profileDTO.getUser_fullname(), profileDTO.getUsername(), profileDTO.getPassword(), profileDTO.getUser_age(), profileDTO.getUser_gender(), profileDTO.getUser_phoneNumber(), profileDTO.getUser_email(), profileDTO.getUser_idCard(), profileDTO.getUser_ava(), profileDTO.getUser_status(), "ROLE_USER", null, null);
+        return userRepo.save(user);
     }
 
 }

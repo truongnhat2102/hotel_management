@@ -194,11 +194,6 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <div className="bg-slate-50 flex flex-col mx-auto w-full max-w-lg px-4">
-        <small className="text-slate-600">test user details</small>
-        <small className="text-slate-600">Email: user1@example.com</small>
-        <small className="text-slate-600">Password: password1</small>
-      </div>
     </>
   );
 };

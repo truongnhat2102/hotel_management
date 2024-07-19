@@ -16,13 +16,13 @@ function EmployeeManagement({ employeeFetch }) {
     };
 
     const handleSaveEmployee = async (user) => {
-        const response = await fetch('http://localhost:8080/user/save', {
+        const response = await fetch('http://localhost:8080/user/save/employee', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
         });
         if (response.ok) {
-            if (user.user_id) {
+            if (user.user_id != 0) {
                 setEmployees(employees.map(e => e.user_id === user.user_id ? user : e));
             } else {
                 const newEmployee = { ...user, user_id: Math.max(...employees.map(e => e.user_id)) + 1 };
@@ -32,7 +32,15 @@ function EmployeeManagement({ employeeFetch }) {
         handleCloseModal();
     };
 
-    const handleDeleteEmployee = (id) => {
+    const handleDeleteEmployee = async (id) => {
+        const response = await fetch(`http://localhost:8080/user/delete/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        if (!response.ok) {
+            console.error(response.status);
+            return;
+        }
         setEmployees(employees.filter(employee => employee.user_id !== id));
     };
 

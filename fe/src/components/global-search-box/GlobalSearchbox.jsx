@@ -18,13 +18,6 @@ const GlobalSearchBox = (props) => {
   } = props;
   return (
     <div className="flex flex-wrap flex-col lg:flex-row hero-content__search-box">
-      {/* <Input
-        size="sm"
-        value={locationInputValue}
-        typeheadResults={locationTypeheadResults}
-        icon={faLocationDot}
-        onChangeInput={onLocationChangeInput}
-      /> */}
       <DateRangePicker
         isDatePickerVisible={isDatePickerVisible}
         onDatePickerIconClick={onDatePickerIconClick}

@@ -10,23 +10,12 @@ import EmployeeManagement from './components/EmployeeManagement';
 import UserManagement from './components/UserManagement';
 import FeedbackList from './components/FeedbacksManagement';
 
-const fetchRevenueData = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-
-            });
-        }, 1000);
-    });
-};
 
 function AdminDashboard() {
     const [isTabsVisible, setIsTabsVisible] = useState(true);
     const wrapperRef = useRef(null);
     const buttonRef = useRef(null);
-
-    const [isLoading, setIsLoading] = useState(true);
-    const [monthlyRevenue, setMonthlyRevenue] = useState([]);
+    const [data, setData] = useState(null);
 
     const [orders, setOrders] = useState([]);
     const [rooms, setRooms] = useState([]);
@@ -34,60 +23,76 @@ function AdminDashboard() {
     const [employees, setEmployees] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [feedbacks, setFeedbacks] = useState([]);
+    const [totalRevenue, setTotalRevenue] = useState([]);
 
     const onTabsMenuButtonAction = () => {
         setIsTabsVisible(!isTabsVisible);
     };
 
-    useEffect = async () => {
+    useEffect(() => {
 
-        // setMonthlyRevenue([
-        //     12000, 15000, 18000, 16000, 20000, 22000,
-        //     21000, 23000, 19000, 30000, 25000, 28000
-        // ]);
+        // setMonthlyRevenue();
         // setIsLoading(false);
+        const fetchData = async () => {
 
-        const orderResponse = await fetch('http://localhost:8080/order');
-        if (!orderResponse.ok) {
-            console.error(orderResponse.status);
-            return;
-        }
-        const orderData = await orderResponse.json();
-        setOrders(orderData);
+            // const revenueResponse = await fetch("http://localhost:8080/admin/chart");
+            // if (!revenueResponse.ok) {
+            //     console.error(revenueResponse.status);
+            //     return;
+            // }
+            
 
-        const roomResponse = await fetch('http://localhost:8080/api/room')
-        if (!roomResponse.ok) {
-            console.error(roomResponse.status);
-            return;
-        }
-        const roomData = await roomResponse.json();
-        setRooms(roomData);
+            const orderResponse = await fetch('http://localhost:8080/order');
+            if (!orderResponse.ok) {
+                console.error(orderResponse.status);
+                return;
+            }
+            const orderData = await orderResponse.json();
+            setOrders(orderData);
 
-        const employeeResponse = await fetch('http://localhost:8080/admin/user/ROLE_EMPLOYEE');
-        if (!employeeResponse.ok) {
-            console.error(employeeResponse.status);
-            return;
-        }
-        const employeeData = await employeeResponse.json();
-        setEmployees(employeeData);
+            const roomResponse = await fetch('http://localhost:8080/api/room')
+            if (!roomResponse.ok) {
+                console.error(roomResponse.status);
+                return;
+            }
+            const roomData = await roomResponse.json();
+            setRooms(roomData);
 
-        const customerResponse = await fetch('http://localhost:8080/admin/user/ROLE_USER');
-        if (!customerResponse.ok) {
-            console.error(customerResponse.status);
-            return;
-        }
-        const customerData = await customerResponse.json();
-        setCustomers(customerData);
+            const employeeResponse = await fetch('http://localhost:8080/admin/user/ROLE_EMPLOYEE');
+            if (!employeeResponse.ok) {
+                console.error(employeeResponse.status);
+                return;
+            }
+            const employeeData = await employeeResponse.json();
+            setEmployees(employeeData);
 
-        const feebackResponse = await fetch('http://localhost:8080/feedback');
-        if (!feebackResponse.ok) {
-            console.error(feebackResponse.status);
-            return;
+            const customerResponse = await fetch('http://localhost:8080/admin/user/ROLE_USER');
+            if (!customerResponse.ok) {
+                console.error(customerResponse.status);
+                return;
+            }
+            const customerData = await customerResponse.json();
+            setCustomers(customerData);
+
+            const feebackResponse = await fetch('http://localhost:8080/feedback');
+            if (!feebackResponse.ok) {
+                console.error(feebackResponse.status);
+                return;
+            }
+            const feedbackData = await feebackResponse.json();
+            setFeedbacks(feedbackData);
+
+            setData({
+                totalOrders: 120,
+                totalRevenue: 50000,
+                totalRooms: roomData.length,
+                topRoom: { name: 'Ocean View Suite', bookings: 85 },
+                monthlyRevenue: [5000, 7000, 8000, 12000, 9000, 10000, 11000, 13000, 14000, 8500, 9000, 9500]
+            });
         }
-        const feedbackData = await feebackResponse.json();
-        setFeedbacks(feedbackData);
-        
-    };
+        fetchData();
+
+    }, []);
 
 
 
@@ -108,7 +113,7 @@ function AdminDashboard() {
             </div>
             <Tabs isTabsVisible={isTabsVisible} wrapperRef={wrapperRef}>
                 <TabPanel label="Quick Summary" icon={faChartBar}>
-                    {/* <Dashboard isLoading={isLoading} data={monthlyRevenue} /> */}
+                    <Dashboard data={data} />
                 </TabPanel>
                 <TabPanel label="Total Orders" icon={faClipboardList}>
                     <OrderManagement orderFetch={orders} />

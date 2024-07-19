@@ -66,6 +66,7 @@ const ChangePasswordUser = ({ userDetails }) => {
                             type='password'
                             value={oldPassword}
                             onChange={setOldPassword}
+                            readonly={true}
                         />
                         <TextField
                             label="New password"
@@ -120,6 +121,7 @@ const TextField = ({
     type = 'text',
     isSelectable,
     selectableData,
+    readonly = false  // New prop to handle readonly state
 }) => (
     <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt className="font-medium text-gray-500">{label}</dt>
@@ -127,15 +129,17 @@ const TextField = ({
             {isSelectable ? (
                 <Select
                     options={selectableData}
-                    value={selectableData.find((country) => country.value === value)}
+                    value={selectableData.find(option => option.value === value)}
                     onChange={(selectedOption) => onChange(selectedOption.value)}
+                    isDisabled={readonly}  // Using isDisabled for Select components if readonly
                 />
             ) : (
                 <input
                     type={type}
-                    className="mt-1 border py-1 px-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm md:text-base  rounded-md"
+                    className="mt-1 border py-1 px-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm md:text-base rounded-md"
                     value={value}
-                    onChange={(e) => onChange(e.target.value)}
+                    onChange={e => onChange(e.target.value)}
+                    readOnly={readonly}  // Apply the readonly attribute when needed
                 />
             )}
         </dd>

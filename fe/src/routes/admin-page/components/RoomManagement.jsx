@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 function RoomManagement({fetchRoom}) {
-    const [rooms, setRooms] = useState([]);
+    const [rooms, setRooms] = useState(fetchRoom);
     const [modalOpen, setModalOpen] = useState(false);
     const [currentRoom, setCurrentRoom] = useState(null);
 
@@ -17,9 +17,9 @@ function RoomManagement({fetchRoom}) {
     };
 
     const handleSaveRoom = (room) => {
-        const method = room.room_id ? 'PUT' : 'POST';
+        const method = room.room_id !== 0 ? false : true;
         fetch('http://localhost:8080/api/room/save', {
-            method: method,
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -27,10 +27,10 @@ function RoomManagement({fetchRoom}) {
         })
         .then(response => response.json())
         .then(savedRoom => {
-            if (method === 'POST') {
+            if (method) {
                 setRooms([...rooms, savedRoom]);
             } else {
-                setRooms(rooms.map(r => r.room_id === room.room_id ? savedRoom : r));
+                setRooms(rooms.map(r => r.room_id === savedRoom.room_id ? savedRoom : r));
             }
             handleCloseModal();
         })
@@ -57,7 +57,7 @@ function RoomManagement({fetchRoom}) {
             </button>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {fetchRoom.map(room => (
+                {rooms.map(room => (
                     <div key={room.room_id} className="p-4 border rounded shadow">
                         <h4 className="text-lg font-bold">{room.room_name}</h4>
                         <p>Status: {room.room_status}</p>
@@ -108,7 +108,7 @@ function RoomModal({ room, onSave, onClose }) {
     return (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
             <div className="bg-white p-5 rounded-lg shadow-lg w-3/4 max-w-4xl">
-                <h2 className="text-lg font-semibold mb-4">{room.id ? 'Edit Room' : 'New Room'}</h2>
+                <h2 className="text-lg font-semibold mb-4">{room.room_id ? 'Edit Room' : 'New Room'}</h2>
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     onSave(formData);
@@ -121,17 +121,6 @@ function RoomModal({ room, onSave, onClose }) {
                             value={formData.room_name} 
                             onChange={handleChange} 
                             placeholder="Room Name" 
-                            className="border w-full p-2 rounded"
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block">Status:</label>
-                        <input 
-                            type="text" 
-                            name="room_status" 
-                            value={formData.room_status} 
-                            onChange={handleChange} 
-                            placeholder="Status" 
                             className="border w-full p-2 rounded"
                         />
                     </div>

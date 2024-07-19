@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.hotel_ocean_royal.dto.RoomDTO;
 import com.example.hotel_ocean_royal.model.entities.Room;
 import com.example.hotel_ocean_royal.model.service.RoomService;
 
@@ -42,12 +43,13 @@ public class RestRoomController {
     
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody Room Room) {
-        if (Room == null) {
+    public ResponseEntity<?> save(@RequestBody RoomDTO RoomDTO) {
+        
+        if (RoomDTO == null) {
             return ResponseEntity.badRequest().build();
         }
-        RoomService.save(Room);
-        return ResponseEntity.ok(Room);
+        Room room = RoomService.save(RoomDTO);
+        return ResponseEntity.ok(room);
     }
 
     

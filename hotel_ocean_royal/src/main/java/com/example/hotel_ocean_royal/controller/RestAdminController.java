@@ -29,5 +29,9 @@ public class RestAdminController {
         return ResponseEntity.ok(userService.findByRoleUser(role_user));
     }
 
+    @GetMapping("/chart")
+    public ResponseEntity<?> getRevenueByMonth(){
+        return ResponseEntity.ok(adminService.getRevenueByMonth());
+    }
 
 }

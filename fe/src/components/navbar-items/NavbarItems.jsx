@@ -55,7 +55,7 @@ const NavbarItems = ({ isAuthenticated, onHamburgerMenuToggle }) => {
           About us
         </Link>
       </li>
-      {dataUser?.role_user == 'ROLE_ADMIN' ? (
+      {JSON.parse(dataUser)?.role_user == 'ROLE_ADMIN' ? (
         <li className="p-4 hover:bg-blue-900 md:hover:bg-brand">
           <Link
             to="/admin"
@@ -69,10 +69,10 @@ const NavbarItems = ({ isAuthenticated, onHamburgerMenuToggle }) => {
       ) : (
         <></>
       )}
-      {dataUser?.role_user == 'ROLE_EMPLOYEE' ? (
+      {JSON.parse(dataUser)?.role_user == 'ROLE_EMPLOYEE' ? (
         <li className="p-4 hover:bg-blue-900 md:hover:bg-brand">
           <Link
-            to="/admin"
+            to="/employee"
             className={`uppercase font-medium text-slate-100 hover-underline-animation ${isActive('/admin') && 'active-link'
               }`}
             onClick={onHamburgerMenuToggle}

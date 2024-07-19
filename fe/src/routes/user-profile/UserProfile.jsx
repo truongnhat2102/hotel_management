@@ -20,12 +20,14 @@ import ChangePasswordUser from './components/ChangePasswordUser';
 const UserProfile = () => {
   // const { userDetails } = useContext(AuthContext);
   const navigate = useNavigate();
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const [currentUser, setCurrentUser] = useState(user);
 
   const wrapperRef = useRef();
   const buttonRef = useRef();
 
   const [isTabsVisible, setIsTabsVisible] = useState(false);
-  const user = JSON.parse(sessionStorage.getItem("user"));
+
   // Fetch user bookings data
   const [userBookingsData, setUserBookingsData] = useState({
     isLoading: true,
@@ -50,17 +52,50 @@ const UserProfile = () => {
     setIsTabsVisible(!isTabsVisible);
   };
 
-  // effect to set initial state of user details
+  // effect to set initial state of user bookings data
   useEffect(() => {
     if (!user) {
       navigate('/login');
     }
-  }, [navigate, user]);
-
-  // effect to set initial state of user bookings data
-  useEffect(() => {
+    setCurrentUser(user);
     const getInitialData = async () => {
-      const userBookingsDataResponse = await fetch(`http://localhost:8080/order/booking/${user.user_id}`);
+      console.log(user.user_id);
+      try {
+        const userBookingsDataResponse = await fetch(`http://localhost:8080/order/booking/${user.user_id}`);
+
+        if (userBookingsDataResponse.ok) {
+          const text = await userBookingsDataResponse.text();
+          try {
+            const data = JSON.parse(text);
+            setUserBookingsData({
+              isLoading: false,
+              data: data,
+              errors: null,
+            });
+          } catch (e) {
+            console.error("Failed to parse JSON:", e);
+            setUserBookingsData({
+              isLoading: false,
+              data: [],
+              errors: "Failed to parse data",
+            });
+          }
+        } else {
+          console.error("HTTP Error:", userBookingsDataResponse.status);
+          setUserBookingsData({
+            isLoading: false,
+            data: [],
+            errors: `Server responded with status: ${userBookingsDataResponse.status}`,
+          });
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        setUserBookingsData({
+          isLoading: false,
+          data: [],
+          errors: "Network error",
+        });
+      }
 
       const userPaymentMethodsResponse = [
         {
@@ -82,15 +117,8 @@ const UserProfile = () => {
           expiryDate: '05/25',
         },
       ];
-      let data = [];
-      if (userBookingsDataResponse.ok) {
-        data = await userBookingsDataResponse.json();
-      }
-      setUserBookingsData({
-        isLoading: false,
-        data: data,
-        errors: userBookingsDataResponse.errors,
-      });
+
+
 
       setUserPaymentMethodsData({
         isLoading: false,
@@ -118,7 +146,7 @@ const UserProfile = () => {
         </div>
         <Tabs isTabsVisible={isTabsVisible} wrapperRef={wrapperRef}>
           <TabPanel label="Personal Details" icon={faAddressCard}>
-            <ProfileDetailsPanel userDetails={user} />
+            <ProfileDetailsPanel userDetails={currentUser} setCurrentUser={setCurrentUser} />
           </TabPanel>
           <TabPanel label="Change password" icon={faAddressCard}>
             <ChangePasswordUser userDetails={user} />

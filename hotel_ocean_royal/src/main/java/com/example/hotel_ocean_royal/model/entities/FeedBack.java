@@ -33,7 +33,7 @@ public class FeedBack {
     private long feedback_id;
 
     private String feedback_comment;
-    private String feedback_vote;
+    private int feedback_vote;
     private LocalDateTime feedback_dateEdit;
 
     @ManyToOne(fetch = FetchType.EAGER)

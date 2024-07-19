@@ -2,6 +2,7 @@ import { faStar, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatPrice } from '../../utils/price-helpers';
+import { useEffect, useState } from 'react';
 
 
 const HotelViewCard = (props) => {
@@ -18,6 +19,7 @@ const HotelViewCard = (props) => {
   const onBookNowClick = () => {
     navigate(`/hotel/${hotelCode}`);
   };
+  const [avgRatings, setAvgRatings] = useState(ratings?.reduce((acc, curr) => acc + curr.feedback_vote, 0)/ratings.length || 0);
 
   return (
     <div
@@ -31,7 +33,7 @@ const HotelViewCard = (props) => {
         >
           <img
             src={image}
-            alt={image.accessibleText}
+            alt={image}
             className="md:w-[220px] md:h-[140px]"
           />
         </Link>
@@ -61,7 +63,7 @@ const HotelViewCard = (props) => {
       <div className="flex flex-col ml-0 md:ml-auto justify-between border-l-0 md:border-l-2 items-stretch pl-0 md:pl-4">
         <div className="flex justify-between my-3 md:my-0 items-center md:flex-col md:justify-between w-full h-full">
           <h4 className="font-medium text-sm text-white bg-brand p-2">
-            {ratings[0].feedback_vote} <FontAwesomeIcon icon={faStar} />
+            {avgRatings} <FontAwesomeIcon icon={faStar} />
           </h4>
           <p className="text-slate-600 font-bold whitespace-nowrap">
             {formatPrice(price)} ₫
