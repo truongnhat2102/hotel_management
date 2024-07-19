@@ -1,0 +1,69 @@
+INSERT INTO room (room_id, room_amount_people, room_description, room_img1, room_img2, room_img3, room_img4, room_img5, room_img6, room_name, room_price, room_status, room_type) VALUES
+(1, 2, 'A luxurious room with sea view', 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg', 'img6.jpg', 'Sea View Suite', '200', 'Available', 'Suite'),
+(2, 3, 'Comfortable family room', 'img7.jpg', 'img8.jpg', 'img9.jpg', 'img10.jpg', 'img11.jpg', 'img12.jpg', 'Family Deluxe', '180', 'Available', 'Deluxe'),
+(3, 1, 'Economical single room', 'img13.jpg', 'img14.jpg', 'img15.jpg', 'img16.jpg', 'img17.jpg', 'img18.jpg', 'Single Economy', '100', 'Available', 'Economy'),
+(4, 2, 'Double room with balcony', 'img19.jpg', 'img20.jpg', 'img21.jpg', 'img22.jpg', 'img23.jpg', 'img24.jpg', 'Double Balcony', '150', 'Available', 'Standard'),
+(5, 2, 'Executive suite for business travelers', 'img25.jpg', 'img26.jpg', 'img27.jpg', 'img28.jpg', 'img29.jpg', 'img30.jpg', 'Executive Suite', '220', 'Available', 'Suite'),
+(6, 4, 'Family suite with kitchenette', 'img31.jpg', 'img32.jpg', 'img33.jpg', 'img34.jpg', 'img35.jpg', 'img36.jpg', 'Family Suite', '250', 'Available', 'Family'),
+(7, 1, 'Compact single room', 'img37.jpg', 'img38.jpg', 'img39.jpg', 'img40.jpg', 'img41.jpg', 'img42.jpg', 'Compact Single', '90', 'Available', 'Economy'),
+(8, 3, 'Triple room with extra space', 'img43.jpg', 'img44.jpg', 'img45.jpg', 'img46.jpg', 'img47.jpg', 'img48.jpg', 'Triple Extra', '160', 'Available', 'Deluxe'),
+(9, 2, 'Standard room with park view', 'img49.jpg', 'img50.jpg', 'img51.jpg', 'img52.jpg', 'img53.jpg', 'img54.jpg', 'Park View Standard', '140', 'Available', 'Standard'),
+(10, 5, 'Penthouse for larger groups', 'img55.jpg', 'img56.jpg', 'img57.jpg', 'img58.jpg', 'img59.jpg', 'img60.jpg', 'Penthouse', '300', 'Available', 'Penthouse');
+
+INSERT INTO orders (order_id, order_checkindate, order_checkoutdate, order_date_create, order_status, order_total_price, room_id, user_id) VALUES
+(1, '2023-07-01 14:00:00', '2023-07-05 12:00:00', '2023-06-24 10:00:00', 'Confirmed', '800', 1, 1),
+(2, '2023-07-10 14:00:00', '2023-07-12 12:00:00', '2023-06-30 15:00:00', 'Confirmed', '360', 2, 2),
+(3, '2023-07-15 14:00:00', '2023-07-20 12:00:00', '2023-07-05 09:00:00', 'Confirmed', '500', 3, 3),
+(4, '2023-07-02 14:00:00', '2023-07-03 12:00:00', '2023-06-25 12:00:00', 'Confirmed', '150', 4, 4),
+(5, '2023-07-25 14:00:00', '2023-07-30 12:00:00', '2023-07-15 13:00:00', 'Confirmed', '1100', 5, 5),
+(6, '2023-08-01 14:00:00', '2023-08-05 12:00:00', '2023-07-22 11:00:00', 'Confirmed', '1000', 6, 6),
+(7, '2023-08-10 14:00:00', '2023-08-15 12:00:00', '2023-08-01 16:00:00', 'Confirmed', '450', 7, 7),
+(8, '2023-08-20 14:00:00', '2023-08-22 12:00:00', '2023-08-10 14:00:00', 'Confirmed', '320', 8, 8),
+(9, '2023-08-25 14:00:00', '2023-08-27 12:00:00', '2023-08-15 17:00:00', 'Confirmed', '280', 9, 9),
+(10, '2023-09-01 14:00:00', '2023-09-10 12:00:00', '2023-08-23 18:00:00', 'Confirmed', '3000', 10, 10);
+
+INSERT INTO feedback (feedback_id, feedback_comment, feedback_date, feedback_vote, room_id, user_id) VALUES
+(1, 'Excellent service and beautiful view!', '2023-07-06', '5 stars', 1, 1),
+(2, 'Very comfortable for families.', '2023-07-13', '4 stars', 2, 2),
+(3, 'Affordable and clean, but small.', '2023-07-21', '3 stars', 3, 3),
+(4, 'Perfect for a short stay.', '2023-07-04', '4 stars', 4, 4),
+(5, 'Luxurious and top-notch service!', '2023-07-31', '5 stars', 5, 5),
+(6, 'Great for kids and family.', '2023-08-06', '5 stars', 6, 6),
+(7, 'Compact but very economical.', '2023-08-16', '4 stars', 7, 7),
+(8, 'Spacious and comfortable.', '2023-08-23', '4 stars', 8, 8),
+(9, 'Nice view but a bit noisy.', '2023-08-28', '3 stars', 9, 9),
+(10, 'The best experience for a large group!', '2023-09-11', '5 stars', 10, 10);
+
+INSERT INTO service (service_id, service_description, service_name, service_price) VALUES
+(1, 'Daily room cleaning', 'Room Cleaning', '30'),
+(2, 'Access to the pool and spa', 'Pool & Spa', '50'),
+(3, 'High-speed Internet connection', 'Internet', '10'),
+(4, 'Buffet breakfast included', 'Breakfast', '20'),
+(5, 'Airport pickup and drop service', 'Airport Shuttle', '100'),
+(6, 'Personalized room decoration for occasions', 'Room Decoration', '75'),
+(7, 'Guided city tours', 'City Tour', '40'),
+(8, 'Fitness center access', 'Gym Access', '25'),
+(9, 'Premium dining experience', 'Dining', '60'),
+(10, 'Conference and business meeting facilities', 'Business Facilities', '150');
+
+INSERT INTO order_service (service_id, order_id) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 3),
+(6, 3),
+(7, 4),
+(8, 4),
+(9, 5),
+(10, 5),
+(1, 6),
+(2, 6),
+(3, 7),
+(4, 7),
+(5, 8),
+(6, 8),
+(7, 9),
+(8, 9),
+(9, 10),
+(10, 10);
