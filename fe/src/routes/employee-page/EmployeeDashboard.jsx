@@ -26,6 +26,10 @@ const EmployeeDashboard = () => {
     }, []);
 
     const handleCheckIn = room_id => async () => {
+        // if (room.room_status === 'Not Empty') {
+        //     alert('Can not check in for this room!');
+        //     return;
+        // }
         const roomResponse = await fetch(`http://localhost:8080/api/room/checkIn/${room_id}`);
         if (!roomResponse.ok) {
             console.error(roomResponse.status);
@@ -33,9 +37,14 @@ const EmployeeDashboard = () => {
         }
         const roomData = await roomResponse.json();
         setRooms(roomData);
+        
     };
 
     const handleCheckOut = room_id => async () => {
+        // if (room.room_status === 'Empty') {
+        //     alert('Can not check out for this room!');
+        //     return;
+        // }
         const roomResponse = await fetch(`http://localhost:8080/api/room/checkOut/${room_id}`);
         if (!roomResponse.ok) {
             console.error(roomResponse.status);

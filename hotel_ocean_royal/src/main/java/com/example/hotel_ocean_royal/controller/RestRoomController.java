@@ -95,7 +95,7 @@ public class RestRoomController {
         Room room = RoomService.getById(room_id);
         room.setRoom_status("Not Empty");
         RoomService.save(room);
-        List<Room> Rooms = RoomService.getRoomsTopService();
+        List<Room> Rooms = RoomService.getAll();
         if (Rooms.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -107,7 +107,7 @@ public class RestRoomController {
         Room room = RoomService.getById(room_id);
         room.setRoom_status("Empty");
         RoomService.save(room);
-        List<Room> Rooms = RoomService.getRoomsTopService();
+        List<Room> Rooms = RoomService.getAll();
         if (Rooms.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

@@ -8,8 +8,8 @@
  * const formattedPrice = formatPrice(1000); // Returns '1,000'
  */
 const formatPrice = (price) => {
-  if (!price) return parseFloat(0).toLocaleString('en-IN');
-  return parseFloat(price).toLocaleString('en-IN');
+  if (!price) return parseFloat(0).toLocaleString('vi-VN');
+  return parseFloat(price).toLocaleString('vi-VN');
 };
 
 export { formatPrice };

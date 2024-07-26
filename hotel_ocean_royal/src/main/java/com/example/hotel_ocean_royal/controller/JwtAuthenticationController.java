@@ -125,7 +125,7 @@ public class JwtAuthenticationController {
             existingCustomer.setPassword(passwordChangeDTO.getNewPassword());
             userService.save(existingCustomer);
 
-            return new ResponseEntity<>("Password changed successfully", HttpStatus.OK);
+            return ResponseEntity.ok(userService.findByUsername(username));
         }
 
         return new ResponseEntity<>(HttpStatus.GATEWAY_TIMEOUT);

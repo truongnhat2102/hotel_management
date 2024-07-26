@@ -5,6 +5,7 @@ const HandleChangePassword = () => {
     const [username, setUsername] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
     const [token, setToken] = useState('');
 
     // Handle input change for all fields
@@ -29,6 +30,7 @@ const HandleChangePassword = () => {
     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setMessageType('error');
         if (newPassword !== confirmPassword) {
             setMessage("New passwords do not match.");
             return;
@@ -49,7 +51,8 @@ const HandleChangePassword = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage('Password changed successfully.');
+                setMessage('Password change success!');
+                setMessageType('success');
                 setNewPassword('');
                 setConfirmPassword('');
             } else {
@@ -98,7 +101,7 @@ const HandleChangePassword = () => {
                 </div>
             </form>
             {message && (
-                <div className="mt-4 p-4 text-center text-sm font-medium rounded-md text-white bg-red-500">
+                <div className={`mt-4 p-4 text-center text-sm font-medium rounded-md text-white ${messageType === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
                     {message}
                 </div>
             )}

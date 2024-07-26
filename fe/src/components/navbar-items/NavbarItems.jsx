@@ -86,7 +86,12 @@ const NavbarItems = ({ isAuthenticated, onHamburgerMenuToggle }) => {
       <li className='p-4 hover:bg-blue-900 md:hover:bg-brand'
       >
         {dataUser != null ? (
-          <DropdownButton triggerType="click" options={dropdownOptions} />
+          <div style={{marginTop: '-15px'}}>
+            <DropdownButton triggerType="click" options={dropdownOptions} />
+          </div>
+            
+          
+
         ) : (
           <Link
             to="/login"
